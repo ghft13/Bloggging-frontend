@@ -2,23 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+
 function Blogpage() {
   const navigate = useNavigate();
-  const [posts, setpost] = useState([]);
-
+  const [posts, setPost] = useState([]);
   const location = useLocation();
-  const [flashmessage, setflashmessage] = useState();
+  const [flashmessage, setFlashMessage] = useState();
 
   useEffect(() => {
-    async function fetchpost() {
+    async function fetchPost() {
       try {
         let response = await axios.get("http://localhost:5000/api/posts", {
           withCredentials: true,
         });
 
-        setpost(response.data.posts);
-
-     
+        setPost(response.data.posts);
       } catch (error) {
         if (error.response?.status === 401) {
           navigate("/login");
@@ -26,14 +24,15 @@ function Blogpage() {
       }
     }
 
-    if (location.state?.updated && posts.length>0) {
-      setflashmessage("Post Updated successfully");
+    if (location.state?.updated && posts.length > 0) {
+      setFlashMessage("Post Updated successfully");
       setTimeout(() => {
-        setflashmessage("");
+        setFlashMessage("");
       }, 2000);
     }
-    fetchpost();
-  }, []);
+    
+    fetchPost();
+  }, [location.state?.updated, navigate, posts.length]);  // Adding missing dependencies
 
   async function handleDelete(id) {
     try {
@@ -45,18 +44,18 @@ function Blogpage() {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        setpost(response.data.posts);
+        setPost(response.data.posts);
       }
       if (response.data.flash) {
-        setflashmessage(response.data.flash);
+        setFlashMessage(response.data.flash);
       }
 
       setTimeout(() => {
-        setflashmessage("");
+        setFlashMessage("");
       }, 2000);
     } catch (error) {
-      setflashmessage("Error while deleting");
-      setflashmessage("");
+      setFlashMessage("Error while deleting");
+      setFlashMessage("");
     }
   }
 
