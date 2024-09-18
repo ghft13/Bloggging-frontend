@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     async function getPost() {
       try {
-        let response = await axios.get("http://localhost:5000/api/posts", {
+        let response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
           withCredentials: true,
         });
 

@@ -7,7 +7,7 @@ function Login() {
   const [userdata, setuserdata] = useState({
     email: "",
     password: "",
-    flashmessage: "", // Make sure it's all lowercase
+    flashmessage: "",
   });
 
   function handledata(e) {
@@ -22,13 +22,13 @@ function Login() {
     e.preventDefault();
     try {
       let response = await axios.post(
-        "http://localhost:5000/api/login",  
+        `${process.env.REACT_APP_API_URL}/login`,
         {
           email: userdata.email,
           password: userdata.password,
         },
         { withCredentials: true }
-      )
+      );
 
       // Ensure you're setting the correct state
       setuserdata((prev) => ({
@@ -36,14 +36,12 @@ function Login() {
         flashmessage: response.data.flash, // Use the correct state key
       }));
 
-    
       setTimeout(() => navigate("/Blog"), 2000);
     } catch (err) {
       setuserdata((prev) => ({
         ...prev,
         flashmessage: err.response?.data.flash || "Login failed", // Use the correct state key
       }));
-
 
       setTimeout(() => {
         setuserdata((prev) => ({ ...prev, flashmessage: "" }));
@@ -59,9 +57,9 @@ function Login() {
         </h2>
 
         {userdata.flashmessage && (
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
-              <p>{userdata.flashmessage}</p> {/* Use correct flashmessage */}
-            </div>
+          <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4">
+            <p>{userdata.flashmessage}</p> {/* Use correct flashmessage */}
+          </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input

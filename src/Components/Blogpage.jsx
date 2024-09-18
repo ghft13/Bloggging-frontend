@@ -12,7 +12,7 @@ function Blogpage() {
   useEffect(() => {
     async function fetchPost() {
       try {
-        let response = await axios.get("http://localhost:5000/api/posts", {
+        let response = await axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
           withCredentials: true,
         });
 
@@ -37,7 +37,7 @@ function Blogpage() {
   async function handleDelete(id) {
     try {
       let response = await axios.post(
-        "http://localhost:5000/api/delete",
+        `${process.env.REACT_APP_API_URL}/delete`,
         {
           id,
         },

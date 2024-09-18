@@ -23,7 +23,7 @@ function Edit() {
   useEffect(() => {
     async function getdata() {
       try {
-        let response = await axios.get(`http://localhost:5000/api/edit/${id}`, {
+        let response = await axios.get(`${process.env.REACT_APP_API_URL}/edit/${id}`, {
           withCredentials: true,
         });
 
@@ -43,7 +43,7 @@ function Edit() {
     e.preventDefault();
     try {
       let response = await axios.post(
-        `http://localhost:5000/api/update/${id}`,
+        `${process.env.REACT_APP_API_URL}/update/${id}`,
         {
           title: post.title,
           blog: post.blog,
