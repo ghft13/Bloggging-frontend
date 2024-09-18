@@ -23,7 +23,7 @@ function Blog() {
 
     try {
       const response = await axios.post(
-       `${process.env.REACT_APP_API_URL}/blog`,
+        `${process.env.REACT_APP_API_URL}/blog`,
         {
           title: formData.title,
           blog: formData.blog,

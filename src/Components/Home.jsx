@@ -30,11 +30,7 @@ const Home = () => {
         </p>
         <nav>
           <ul className="flex justify-center space-x-6 mt-4">
-            <li>
-              <Link to="/" className="text-white hover:text-blue-400">
-                Home
-              </Link>
-            </li>
+          
             <li>
               <Link to="/blog" className="text-white hover:text-blue-400">
                 Create Blog
